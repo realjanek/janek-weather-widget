@@ -47,20 +47,23 @@ static get styles() {
   }
 
   fetchWeatherData() {
-    //fetch(`https://api.open-meteo.com/v1/forecast?city=${this.city}`)
+   
+    //fetch(`https://api.open-meteo.com/v1/forecast?latitude=-33.87&longitude=151.21&hourly=temperature_2m`)
 
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=-33.87&longitude=151.21&hourly=temperature_2m`)
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=-34.83&longitude=148.92&hourly=temperature_2m,relativehumidity_2m,windspeed_10m`)
+
       .then(response => response.json())
       .then(data => {
         this._data=data;
         //console.log(this._data.hourly.temperature_2m[0]);
+        //console.log(this._data.hourly.relativehumidity_2m[0]);
+        //console.log(this._data.hourly.windspeed_10m[0]);
         const temperature = this._data.hourly.temperature_2m[0];
-        console.log(temperature);
-        const humidity = 0;
-        const wind_speed = 0;
-
-       
-        
+        const humidity = this._data.hourly.relativehumidity_2m[0];
+        const wind_speed = this._data.hourly.windspeed_10m[0];
+        //console.log(temperature);
+        //console.log(humidity);
+        //console.log(wind_speed);     
   })
       .catch(error => {
         console.log('Error fetching weather data: ');
@@ -72,7 +75,9 @@ static get styles() {
     if (this._data) {
         console.log(this._data);        
         this.temperature = this._data.hourly.temperature_2m[0];
-       console.log(this.temperature);
+        this.humidity = this._data.hourly.relativehumidity_2m[0];
+        this.wind_speed = this._data.hourly.windspeed_10m[0];
+       //console.log(this.temperature);
         return html`
         <div>
 
