@@ -1,0 +1,1 @@
+# janek-weather-widget
